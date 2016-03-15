@@ -53,11 +53,7 @@ public class HelloSesame {
 				Model model = Iterations.addAll(statements,
 						new LinkedHashModel());
 				
-				model.setNamespace("rdf",RDF.NAMESPACE);
-				model.setNamespace("rdfs", RDFS.NAMESPACE);
-				model.setNamespace("xsd",XMLSchema.NAMESPACE);
-				model.setNamespace("foaf",FOAF.NAMESPACE);
-				model.setNamespace("ex",namespace);
+				setNameSpace(namespace, model);
 				
 				Rio.write(model, System.out, RDFFormat.TURTLE);
 			}
@@ -78,6 +74,14 @@ public class HelloSesame {
 			}
 		}
 
+	}
+
+	private static void setNameSpace(String namespace, Model model) {
+		model.setNamespace("rdf",RDF.NAMESPACE);
+		model.setNamespace("rdfs", RDFS.NAMESPACE);
+		model.setNamespace("xsd",XMLSchema.NAMESPACE);
+		model.setNamespace("foaf",FOAF.NAMESPACE);
+		model.setNamespace("ex",namespace);
 	}
 
 //	collected from : http://rdf4j.org/sesame/tutorials/getting-started.docbook?view
