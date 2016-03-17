@@ -84,5 +84,5 @@ public class HelloSesame {
 		model.setNamespace("ex",namespace);
 	}
 
-//	collected from : http://rdf4j.org/sesame/tutorials/getting-started.docbook?view
+//	inspiration : http://rdf4j.org/sesame/tutorials/getting-started.docbook?view
 }
