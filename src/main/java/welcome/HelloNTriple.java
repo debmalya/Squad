@@ -1,5 +1,11 @@
+/**
+ * 
+ */
 package welcome;
 import info.aduna.iteration.Iterations;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import org.openrdf.model.Model;
 import org.openrdf.model.Statement;
@@ -19,15 +25,11 @@ import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.Rio;
 import org.openrdf.sail.memory.MemoryStore;
-
-/**
- * 
- */
 /**
  * @author debmalyajash
  *
  */
-public class HelloSesame {
+public class HelloNTriple {
 
 	/**
 	 * @param args
@@ -46,7 +48,7 @@ public class HelloSesame {
 				conn.add(john, RDF.TYPE, FOAF.PERSON);
 				conn.add(john, RDFS.LABEL,
 						f.createLiteral("John", XMLSchema.STRING));
-
+				
 				RepositoryResult<Statement> statements = conn.getStatements(
 						null, null, null, true);
 
@@ -56,11 +58,15 @@ public class HelloSesame {
 				setNameSpace(namespace, model);
 				
 				Rio.write(model, System.out, RDFFormat.TURTLE);
+				Rio.write(model,new FileOutputStream("Trutle"),RDFFormat.TURTLE);
 			}
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (RDFHandlerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -81,8 +87,7 @@ public class HelloSesame {
 		model.setNamespace("rdfs", RDFS.NAMESPACE);
 		model.setNamespace("xsd",XMLSchema.NAMESPACE);
 		model.setNamespace("foaf",FOAF.NAMESPACE);
+		model.setNamespace("nga","http://www.nogginasia.com/");
 		model.setNamespace("ex",namespace);
 	}
-
-//	inspiration : http://rdf4j.org/sesame/tutorials/getting-started.docbook?view
 }
