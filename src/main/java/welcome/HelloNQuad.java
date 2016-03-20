@@ -62,6 +62,7 @@ public class HelloNQuad {
 				setNameSpace(namespace, model);
 				
 				Rio.write(model, new FileOutputStream("Quad"), RDFFormat.NQUADS) ;
+				Rio.write(model, System.out, RDFFormat.NQUADS) ;
 			}
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block

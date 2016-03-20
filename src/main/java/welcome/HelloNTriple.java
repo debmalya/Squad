@@ -45,6 +45,7 @@ public class HelloNTriple {
 				URI john = f.createURI(namespace, "john_doe");
 
 				conn = rep.getConnection();
+				conn.begin();
 				conn.add(john, RDF.TYPE, FOAF.PERSON);
 				conn.add(john, RDFS.LABEL,
 						f.createLiteral("John", XMLSchema.STRING));
@@ -59,6 +60,7 @@ public class HelloNTriple {
 				
 				Rio.write(model, System.out, RDFFormat.TURTLE);
 				Rio.write(model,new FileOutputStream("Trutle"),RDFFormat.TURTLE);
+				conn.commit();
 			}
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
@@ -70,8 +72,10 @@ public class HelloNTriple {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+			
 			if (conn != null) {
 				try {
+					
 					conn.close();
 				} catch (RepositoryException e) {
 					// TODO Auto-generated catch block
