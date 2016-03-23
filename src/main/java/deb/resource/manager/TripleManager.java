@@ -3,19 +3,16 @@
  */
 package deb.resource.manager;
 
-import info.aduna.iteration.Iterations;
-
-import org.openrdf.model.Model;
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
 import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.LinkedHashModel;
-import org.openrdf.model.vocabulary.FOAF;
 import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryResult;
 
 /**
+ * This will manage all the triples.
+ * Adding triples, retrieving triples.
  * @author debmalyajash
  *
  */
@@ -24,14 +21,33 @@ public class TripleManager {
 
 	}
 
+	/**
+	 * Triple Manager Singleton Holder.
+	 * @author debmalyajash
+	 *
+	 */
 	private static class SingletonHolder {
 		private static final TripleManager instance = new TripleManager();
 	}
 
+	/**
+	 * 
+	 * @return Triple Manager instance.
+	 */
 	public static TripleManager getInstance() {
 		return SingletonHolder.instance;
 	}
 
+	/**
+	 * 
+	 * @param repositoryConnection
+	 * @param namespace
+	 * @param subject
+	 * @param predicate
+	 * @param object
+	 * @return true if triple are added successfully.
+	 * @throws Exception
+	 */
 	public boolean addTriple(final RepositoryConnection repositoryConnection,
 			final String namespace, final String subject,
 			final String predicate, final String object)
@@ -54,6 +70,7 @@ public class TripleManager {
 		
 		repositoryConnection.commit();
 		} catch(Throwable th) {
+			repositoryConnection.rollback();
 			throw new Exception("addTriple ERR :" + th.getMessage(),th);
 			
 		}

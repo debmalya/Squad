@@ -46,7 +46,7 @@ public class HelloNTriple {
 
 				conn = rep.getConnection();
 				conn.begin();
-				conn.add(john, RDF.TYPE, FOAF.PERSON);
+				
 				conn.add(john, RDFS.LABEL,
 						f.createLiteral("John", XMLSchema.STRING));
 				
