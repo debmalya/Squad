@@ -11,8 +11,8 @@ import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryResult;
 
 /**
- * This will manage all the triples.
- * Adding triples, retrieving triples.
+ * This will manage all the triples. Adding triples, retrieving triples.
+ * 
  * @author debmalyajash
  *
  */
@@ -23,6 +23,7 @@ public class TripleManager {
 
 	/**
 	 * Triple Manager Singleton Holder.
+	 * 
 	 * @author debmalyajash
 	 *
 	 */
@@ -50,29 +51,25 @@ public class TripleManager {
 	 */
 	public boolean addTriple(final RepositoryConnection repositoryConnection,
 			final String namespace, final String subject,
-			final String predicate, final String object)
-			throws Exception {
+			final String predicate, final String object) throws Exception {
 		try {
-		ValueFactory f = repositoryConnection.getValueFactory();
-		URI subjectURI = f.createURI(namespace, subject);
-		URI predicateURI = RDF.TYPE;
-		if (predicate != null) {
-			predicateURI = f.createURI(namespace, predicate);
-		}
+			ValueFactory f = repositoryConnection.getValueFactory();
+			URI subjectURI = f.createURI(namespace, subject);
+			URI predicateURI = RDF.TYPE;
+			if (predicate != null) {
+				predicateURI = f.createURI(namespace, predicate);
+			}
 
-		URI objectURI = f.createURI(namespace,object);
-		repositoryConnection.begin();
-		RepositoryResult<Statement> statements = repositoryConnection.getStatements(
-				null, null, null, true);
-		
-		repositoryConnection.add(subjectURI, predicateURI, objectURI);
+			URI objectURI = f.createURI(namespace, object);
+			repositoryConnection.begin();
 
-		
-		repositoryConnection.commit();
-		} catch(Throwable th) {
+			repositoryConnection.add(subjectURI, predicateURI, objectURI);
+
+			repositoryConnection.commit();
+		} catch (Throwable th) {
 			repositoryConnection.rollback();
-			throw new Exception("addTriple ERR :" + th.getMessage(),th);
-			
+			throw new Exception("addTriple ERR :" + th.getMessage(), th);
+
 		}
 		return true;
 	}
