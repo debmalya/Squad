@@ -3,13 +3,17 @@
  */
 package deb.context;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.openrdf.model.IRI;
+import org.openrdf.model.Model;
+import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.model.ValueFactory;
+import org.openrdf.query.QueryResults;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryResult;
 
@@ -39,17 +43,17 @@ public class ContextualizerTest {
 			ValueFactory valueFactory = repositoryConnection.getValueFactory();
 
 			IRI subjectIRI = valueFactory.createIRI(
-					"http://www.noggingasia/com", "subject");
+					"http://www.raju.com/", "subject");
 			IRI predicateIRI = valueFactory.createIRI(
-					"http://www.noggingasia/com", "predicate");
+					"http://www.raju.com/", "predicate");
 			IRI objectIRI = valueFactory.createIRI(
-					"http://www.noggingasia/com", "object");
+					"http://www.raju.com/", "object");
 			IRI contextIRI = valueFactory.createIRI(
-					"http://www.noggingasia/com", "context");
+					"http://www.raju.com/", "context");
 
 			Contextualizer contextulizer = new Contextualizer();
 			Assert.assertTrue(contextulizer.createQuad(
-					"http://www.nogginasia.com/", subjectIRI, predicateIRI,
+					"http://www.raju.com/", subjectIRI, predicateIRI,
 					objectIRI, contextIRI, repositoryConnection));
 		} catch (Throwable th) {
 			Assert.assertFalse("CreateQuad failed :" + th.getMessage(), true);
@@ -64,27 +68,34 @@ public class ContextualizerTest {
 			ValueFactory valueFactory = repositoryConnection.getValueFactory();
 
 			IRI contextIRI = valueFactory.createIRI(
-					"http://www.noggingasia/com", "context");
+					"http://www.raju.com/", "context");
 
 			Contextualizer contextulizer = new Contextualizer();
-//
+			//
 			List<RepositoryResult<Statement>> statements = contextulizer
 					.getContextStatements(repositoryConnection, contextIRI);
 
 			Assert.assertNotNull(statements);
 			
-			System.out.println(statements.size());
-			
-			for  (RepositoryResult<Statement> statement:statements) {
-				
-				
-//				Assert.assertNotNull(statement);
-//				while (statement.hasNext()) {
-//				System.out.println(statment.+";"+statment.getPredicate()+";"+statment.getObject()+";"+statment.getContext());
-//				}
+			for (RepositoryResult<Statement> result:statements){
+				Model model = QueryResults.asModel(result);
+				System.out.println(model);
+				while (result.hasNext()){
+					Statement statement = (Statement)result.next();
+					Resource subject = statement.getSubject();
+					Assert.assertNotNull(subject);
+					System.out.println(subject);
+					
+					
+				}
 			}
+			
+
+
 		} catch (Throwable th) {
 			Assert.assertFalse("CreateQuad failed :" + th.getMessage(), true);
+		} finally {
+			repositoryConnection.close();
 		}
 
 	}

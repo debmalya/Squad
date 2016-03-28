@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openrdf.model.IRI;
+import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryResult;
@@ -43,7 +44,7 @@ public class Contextualizer implements Contextualize {
 				repositoryConnection.rollback();
 				throw new RuntimeException(th.getMessage(), th);
 			} finally {
-//				repositoryConnection.close();
+				// repositoryConnection.close();
 			}
 		}
 		return false;
@@ -59,21 +60,26 @@ public class Contextualizer implements Contextualize {
 			RepositoryConnection repositoryConnection, IRI... contextIRI) {
 		List<RepositoryResult<Statement>> resultList = new ArrayList<>();
 		try {
-			
+
 			if (repositoryConnection != null) {
-				if (!repositoryConnection.isOpen()) {
-					repositoryConnection.begin(); 
-				}
-				for (IRI each: contextIRI) {
-					resultList.add(repositoryConnection.getStatements(null, null, null, false, each));
+				
+				if (contextIRI != null) {
+					System.out.println("Here");
+					for (IRI each : contextIRI) {
+						resultList.add(repositoryConnection.getStatements(null,
+								null, null, true, each));
+					}
+				} else {
+					System.out.println("THere");
+					resultList.add(repositoryConnection.getStatements(null,
+							null, null, true, (Resource)null));
 				}
 			}
 		} catch (Throwable th) {
 			throw new RuntimeException("ERR: getContextStatements"
 					+ th.getMessage(), th);
 		} finally {
-			repositoryConnection.commit();
-			repositoryConnection.close();
+//			repositoryConnection.close();
 		}
 		return resultList;
 	}
