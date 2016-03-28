@@ -8,6 +8,12 @@
 
 	<dependencies>
 
+		<!--   <dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-bom</artifactId>
+			<version>4.1.1</version>
+		</dependency>
+		-->
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-runtime</artifactId>
