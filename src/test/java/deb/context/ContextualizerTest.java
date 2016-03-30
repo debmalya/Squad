@@ -55,6 +55,20 @@ public class ContextualizerTest {
 			Assert.assertTrue(contextulizer.createQuad(
 					"http://www.raju.com/", subjectIRI, predicateIRI,
 					objectIRI, contextIRI, repositoryConnection));
+			
+			 subjectIRI = valueFactory.createIRI(
+					"http://www.raju.com/", "subject1");
+			 predicateIRI = valueFactory.createIRI(
+					"http://www.raju.com/", "predicate1");
+			 objectIRI = valueFactory.createIRI(
+					"http://www.raju.com/", "object1");
+			 contextIRI = valueFactory.createIRI(
+					"http://www.raju.com/", "context1");
+			 
+			 Assert.assertTrue(contextulizer.createQuad(
+						"http://www.raju.com/", subjectIRI, predicateIRI,
+						objectIRI, contextIRI, repositoryConnection));
+			 
 		} catch (Throwable th) {
 			Assert.assertFalse("CreateQuad failed :" + th.getMessage(), true);
 		}
@@ -74,21 +88,16 @@ public class ContextualizerTest {
 			//
 			List<RepositoryResult<Statement>> statements = contextulizer
 					.getContextStatements(repositoryConnection, contextIRI);
-
-			Assert.assertNotNull(statements);
+			checkContextRetrieval(statements);
 			
-			for (RepositoryResult<Statement> result:statements){
-				Model model = QueryResults.asModel(result);
-				System.out.println(model);
-				while (result.hasNext()){
-					Statement statement = (Statement)result.next();
-					Resource subject = statement.getSubject();
-					Assert.assertNotNull(subject);
-					System.out.println(subject);
-					
-					
-				}
-			}
+			contextIRI = valueFactory.createIRI(
+					"http://www.raju.com/", "context1");
+
+			statements = contextulizer
+					.getContextStatements(repositoryConnection, contextIRI);
+			checkContextRetrieval(statements);
+
+			
 			
 
 
@@ -98,5 +107,23 @@ public class ContextualizerTest {
 			repositoryConnection.close();
 		}
 
+	}
+
+	private void checkContextRetrieval(
+			List<RepositoryResult<Statement>> statements) {
+		Assert.assertNotNull(statements);
+		
+		for (RepositoryResult<Statement> result:statements){
+			Model model = QueryResults.asModel(result);
+			System.out.println(model);
+			while (result.hasNext()){
+				Statement statement = (Statement)result.next();
+				Resource subject = statement.getSubject();
+				Assert.assertNotNull(subject);
+				System.out.println(subject);
+				
+				
+			}
+		}
 	}
 }
