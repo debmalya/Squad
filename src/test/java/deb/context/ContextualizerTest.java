@@ -65,6 +65,15 @@ public class ContextualizerTest {
 			 contextIRI = valueFactory.createIRI(
 					"http://www.raju.com/", "context1");
 			 
+			 subjectIRI = valueFactory.createIRI(
+						"http://www.raju.com/", "subject2");
+				 predicateIRI = valueFactory.createIRI(
+						"http://www.raju.com/", "predicate2");
+				 objectIRI = valueFactory.createIRI(
+						"http://www.raju.com/", "object2");
+				 contextIRI = valueFactory.createIRI(
+						"http://www.raju.com/", "context");
+			 
 			 Assert.assertTrue(contextulizer.createQuad(
 						"http://www.raju.com/", subjectIRI, predicateIRI,
 						objectIRI, contextIRI, repositoryConnection));
