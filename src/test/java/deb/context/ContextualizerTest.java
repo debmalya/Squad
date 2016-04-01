@@ -42,42 +42,42 @@ public class ContextualizerTest {
 
 			ValueFactory valueFactory = repositoryConnection.getValueFactory();
 
-			IRI subjectIRI = valueFactory.createIRI(
-					"http://www.raju.com/", "subject");
-			IRI predicateIRI = valueFactory.createIRI(
-					"http://www.raju.com/", "predicate");
-			IRI objectIRI = valueFactory.createIRI(
-					"http://www.raju.com/", "object");
-			IRI contextIRI = valueFactory.createIRI(
-					"http://www.raju.com/", "context");
+			IRI subjectIRI = valueFactory.createIRI("http://www.raju.com/",
+					"subject");
+			IRI predicateIRI = valueFactory.createIRI("http://www.raju.com/",
+					"predicate");
+			IRI objectIRI = valueFactory.createIRI("http://www.raju.com/",
+					"object");
+			IRI contextIRI = valueFactory.createIRI("http://www.raju.com/",
+					"context");
 
 			Contextualizer contextulizer = new Contextualizer();
-			Assert.assertTrue(contextulizer.createQuad(
-					"http://www.raju.com/", subjectIRI, predicateIRI,
-					objectIRI, contextIRI, repositoryConnection));
-			
-			 subjectIRI = valueFactory.createIRI(
-					"http://www.raju.com/", "subject1");
-			 predicateIRI = valueFactory.createIRI(
-					"http://www.raju.com/", "predicate1");
-			 objectIRI = valueFactory.createIRI(
-					"http://www.raju.com/", "object1");
-			 contextIRI = valueFactory.createIRI(
-					"http://www.raju.com/", "context1");
-			 
-			 subjectIRI = valueFactory.createIRI(
-						"http://www.raju.com/", "subject2");
-				 predicateIRI = valueFactory.createIRI(
-						"http://www.raju.com/", "predicate2");
-				 objectIRI = valueFactory.createIRI(
-						"http://www.raju.com/", "object2");
-				 contextIRI = valueFactory.createIRI(
-						"http://www.raju.com/", "context");
-			 
-			 Assert.assertTrue(contextulizer.createQuad(
-						"http://www.raju.com/", subjectIRI, predicateIRI,
-						objectIRI, contextIRI, repositoryConnection));
-			 
+			Assert.assertTrue(contextulizer.createQuad("http://www.raju.com/",
+					subjectIRI, predicateIRI, objectIRI, contextIRI,
+					repositoryConnection));
+
+			subjectIRI = valueFactory.createIRI("http://www.raju.com/",
+					"subject1");
+			predicateIRI = valueFactory.createIRI("http://www.raju.com/",
+					"predicate1");
+			objectIRI = valueFactory.createIRI("http://www.raju.com/",
+					"object1");
+			contextIRI = valueFactory.createIRI("http://www.raju.com/",
+					"context1");
+
+			subjectIRI = valueFactory.createIRI("http://www.raju.com/",
+					"subject2");
+			predicateIRI = valueFactory.createIRI("http://www.raju.com/",
+					"predicate2");
+			objectIRI = valueFactory.createIRI("http://www.raju.com/",
+					"object2");
+			contextIRI = valueFactory.createIRI("http://www.raju.com/",
+					"context");
+
+			Assert.assertTrue(contextulizer.createQuad("http://www.raju.com/",
+					subjectIRI, predicateIRI, objectIRI, contextIRI,
+					repositoryConnection));
+
 		} catch (Throwable th) {
 			Assert.assertFalse("CreateQuad failed :" + th.getMessage(), true);
 		}
@@ -90,25 +90,21 @@ public class ContextualizerTest {
 
 			ValueFactory valueFactory = repositoryConnection.getValueFactory();
 
-			IRI contextIRI = valueFactory.createIRI(
-					"http://www.raju.com/", "context");
+			IRI contextIRI = valueFactory.createIRI("http://www.raju.com/",
+					"context");
 
 			Contextualizer contextulizer = new Contextualizer();
 			//
 			List<RepositoryResult<Statement>> statements = contextulizer
 					.getContextStatements(repositoryConnection, contextIRI);
 			checkContextRetrieval(statements);
-			
-			contextIRI = valueFactory.createIRI(
-					"http://www.raju.com/", "context1");
 
-			statements = contextulizer
-					.getContextStatements(repositoryConnection, contextIRI);
+			contextIRI = valueFactory.createIRI("http://www.raju.com/",
+					"context1");
+
+			statements = contextulizer.getContextStatements(
+					repositoryConnection, contextIRI);
 			checkContextRetrieval(statements);
-
-			
-			
-
 
 		} catch (Throwable th) {
 			Assert.assertFalse("CreateQuad failed :" + th.getMessage(), true);
@@ -121,17 +117,16 @@ public class ContextualizerTest {
 	private void checkContextRetrieval(
 			List<RepositoryResult<Statement>> statements) {
 		Assert.assertNotNull(statements);
-		
-		for (RepositoryResult<Statement> result:statements){
+
+		for (RepositoryResult<Statement> result : statements) {
 			Model model = QueryResults.asModel(result);
 			System.out.println(model);
-			while (result.hasNext()){
-				Statement statement = (Statement)result.next();
+			while (result.hasNext()) {
+				Statement statement = (Statement) result.next();
 				Resource subject = statement.getSubject();
 				Assert.assertNotNull(subject);
 				System.out.println(subject);
-				
-				
+
 			}
 		}
 	}
