@@ -3,7 +3,6 @@
  */
 package deb.context;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
@@ -25,6 +24,11 @@ import deb.repository.NativeRepository;
  */
 public class ContextualizerTest {
 
+	/**
+	 * 
+	 */
+	private static final String NAMESPACE = "http://www.raju.com/";
+
 	private static NativeRepository nativeRepository = new NativeRepository(
 			"./src/main/resources");
 
@@ -42,39 +46,39 @@ public class ContextualizerTest {
 
 			ValueFactory valueFactory = repositoryConnection.getValueFactory();
 
-			IRI subjectIRI = valueFactory.createIRI("http://www.raju.com/",
+			IRI subjectIRI = valueFactory.createIRI(NAMESPACE,
 					"subject");
-			IRI predicateIRI = valueFactory.createIRI("http://www.raju.com/",
+			IRI predicateIRI = valueFactory.createIRI(NAMESPACE,
 					"predicate");
-			IRI objectIRI = valueFactory.createIRI("http://www.raju.com/",
+			IRI objectIRI = valueFactory.createIRI(NAMESPACE,
 					"object");
-			IRI contextIRI = valueFactory.createIRI("http://www.raju.com/",
+			IRI contextIRI = valueFactory.createIRI(NAMESPACE,
 					"context");
 
 			Contextualizer contextulizer = new Contextualizer();
-			Assert.assertTrue(contextulizer.createQuad("http://www.raju.com/",
+			Assert.assertTrue(contextulizer.createQuad(NAMESPACE,
 					subjectIRI, predicateIRI, objectIRI, contextIRI,
 					repositoryConnection));
 
-			subjectIRI = valueFactory.createIRI("http://www.raju.com/",
+			subjectIRI = valueFactory.createIRI(NAMESPACE,
 					"subject1");
-			predicateIRI = valueFactory.createIRI("http://www.raju.com/",
+			predicateIRI = valueFactory.createIRI(NAMESPACE,
 					"predicate1");
-			objectIRI = valueFactory.createIRI("http://www.raju.com/",
+			objectIRI = valueFactory.createIRI(NAMESPACE,
 					"object1");
-			contextIRI = valueFactory.createIRI("http://www.raju.com/",
+			contextIRI = valueFactory.createIRI(NAMESPACE,
 					"context1");
 
-			subjectIRI = valueFactory.createIRI("http://www.raju.com/",
+			subjectIRI = valueFactory.createIRI(NAMESPACE,
 					"subject2");
-			predicateIRI = valueFactory.createIRI("http://www.raju.com/",
+			predicateIRI = valueFactory.createIRI(NAMESPACE,
 					"predicate2");
-			objectIRI = valueFactory.createIRI("http://www.raju.com/",
+			objectIRI = valueFactory.createIRI(NAMESPACE,
 					"object2");
-			contextIRI = valueFactory.createIRI("http://www.raju.com/",
+			contextIRI = valueFactory.createIRI(NAMESPACE,
 					"context");
 
-			Assert.assertTrue(contextulizer.createQuad("http://www.raju.com/",
+			Assert.assertTrue(contextulizer.createQuad(NAMESPACE,
 					subjectIRI, predicateIRI, objectIRI, contextIRI,
 					repositoryConnection));
 
@@ -90,7 +94,7 @@ public class ContextualizerTest {
 
 			ValueFactory valueFactory = repositoryConnection.getValueFactory();
 
-			IRI contextIRI = valueFactory.createIRI("http://www.raju.com/",
+			IRI contextIRI = valueFactory.createIRI(NAMESPACE,
 					"context");
 
 			Contextualizer contextulizer = new Contextualizer();
@@ -99,7 +103,7 @@ public class ContextualizerTest {
 					.getContextStatements(repositoryConnection, contextIRI);
 			checkContextRetrieval(statements);
 
-			contextIRI = valueFactory.createIRI("http://www.raju.com/",
+			contextIRI = valueFactory.createIRI(NAMESPACE,
 					"context1");
 
 			statements = contextulizer.getContextStatements(
