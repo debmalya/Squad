@@ -64,13 +64,13 @@ public class Contextualizer implements Contextualize {
 			if (repositoryConnection != null) {
 				
 				if (contextIRI != null) {
-					System.out.println("Here");
+					
 					for (IRI each : contextIRI) {
 						resultList.add(repositoryConnection.getStatements(null,
 								null, null, true, each));
 					}
 				} else {
-					System.out.println("THere");
+					
 					resultList.add(repositoryConnection.getStatements(null,
 							null, null, true, (Resource)null));
 				}
