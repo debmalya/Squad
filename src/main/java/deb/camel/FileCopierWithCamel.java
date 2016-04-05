@@ -27,6 +27,14 @@ public class FileCopierWithCamel {
 	 *             http://camel.apache.org/stream-caching.html
 	 */
 	public static void main(String[] args) {
+		routeFile();
+
+	}
+
+	/**
+	 * 
+	 */
+	private static void routeFile() {
 		CamelContext camelContext = null;
 		try {
 			camelContext = new DefaultCamelContext();
@@ -56,7 +64,6 @@ public class FileCopierWithCamel {
 				}
 			}
 		}
-
 	}
 
 }
