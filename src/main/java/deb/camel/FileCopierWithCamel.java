@@ -27,14 +27,13 @@ public class FileCopierWithCamel {
 	 *             http://camel.apache.org/stream-caching.html
 	 */
 	public static void main(String[] args) {
-		routeFile();
-
+		routeFile("file:src/main/resources/data?noop=true","file:src/main/resources/out");
 	}
 
 	/**
 	 * 
 	 */
-	private static void routeFile() {
+	private static void routeFile(final String inputDirectory,final String outputDirectory) {
 		CamelContext camelContext = null;
 		try {
 			camelContext = new DefaultCamelContext();
@@ -44,8 +43,8 @@ public class FileCopierWithCamel {
 				public void configure() throws Exception {
 					// noop option tells Camel to leave the source file as it
 					// is.	
-					from("file:src/main/resources/data?noop=true").to(
-							"file:src/main/resources/out");
+					from(inputDirectory).to(
+							outputDirectory);
 
 				}
 			});
