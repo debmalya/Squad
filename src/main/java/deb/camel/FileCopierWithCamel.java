@@ -33,7 +33,7 @@ public class FileCopierWithCamel {
 	/**
 	 * 
 	 */
-	private static void routeFile(final String inputDirectory,final String outputDirectory) {
+	public static void routeFile(final String inputDirectory,final String outputDirectory) {
 		CamelContext camelContext = null;
 		try {
 			camelContext = new DefaultCamelContext();
