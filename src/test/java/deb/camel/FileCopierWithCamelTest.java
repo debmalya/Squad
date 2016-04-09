@@ -3,8 +3,9 @@
  */
 package deb.camel;
 
-import static org.junit.Assert.*;
+import java.io.File;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -20,7 +21,13 @@ public class FileCopierWithCamelTest {
 	public final void testRouteFile() {
 		String inputDir = "src/main/resources/data";
 		String outputDir = "src/main/resources/out";
-		FileCopierWithCamel.routeFile("file:"+inputDir+"?noop=true","file:"+outputDir);
+		String options = "?noop=true";
+		FileCopierWithCamel.routeFile("file:"+inputDir+options,"file:"+outputDir);
+		
+		File inputFiles = new File(inputDir);
+		File outputFiles = new File(outputDir);
+		
+		Assert.assertArrayEquals(inputFiles.list(), outputFiles.list());
 	}
 
 }
