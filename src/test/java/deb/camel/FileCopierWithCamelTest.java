@@ -24,9 +24,12 @@ public class FileCopierWithCamelTest {
 		String options = "?noop=true";
 		FileCopierWithCamel.routeFile("file:"+inputDir+options,"file:"+outputDir);
 		
+		checkDirectories(inputDir,outputDir);
+	}
+	
+	private void checkDirectories(final String inputDir,final String outputDir) {
 		File inputFiles = new File(inputDir);
 		File outputFiles = new File(outputDir);
-		
 		Assert.assertArrayEquals(inputFiles.list(), outputFiles.list());
 	}
 
