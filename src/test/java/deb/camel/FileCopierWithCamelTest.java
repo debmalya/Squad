@@ -15,6 +15,11 @@ import org.junit.Test;
 public class FileCopierWithCamelTest {
 
 	/**
+	 * 
+	 */
+	private static final String FILE_OPTION = "file:";
+
+	/**
 	 * Test method for {@link deb.camel.FileCopierWithCamel#routeFile(java.lang.String, java.lang.String)}.
 	 */
 	@Test
@@ -22,7 +27,7 @@ public class FileCopierWithCamelTest {
 		String inputDir = "src/main/resources/data";
 		String outputDir = "src/main/resources/out";
 		String options = "?noop=true";
-		FileCopierWithCamel.routeFile("file:"+inputDir+options,"file:"+outputDir);
+		FileCopierWithCamel.routeFile(FILE_OPTION+inputDir+options,FILE_OPTION+outputDir);
 		
 		checkDirectories(inputDir,outputDir);
 	}
