@@ -32,6 +32,8 @@ public class FileCopierWithCamel {
 
 	/**
 	 * 
+	 * @param inputDirectory - files will be copied from.
+	 * @param outputDirectory - files will be copied to.
 	 */
 	public static void routeFile(final String inputDirectory,final String outputDirectory) {
 		CamelContext camelContext = null;
