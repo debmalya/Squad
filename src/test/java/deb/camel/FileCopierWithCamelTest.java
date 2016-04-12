@@ -27,7 +27,7 @@ public class FileCopierWithCamelTest {
 		String inputDir = "src/main/resources/data";
 		String outputDir = "src/main/resources/out";
 		String options = "?noop=true";
-		FileCopierWithCamel.routeFile(FILE_OPTION+inputDir+options,FILE_OPTION+outputDir);
+		FileCopierWithCamel.routeFile(FILE_OPTION+inputDir+options,FILE_OPTION+outputDir,null);
 		
 		checkDirectories(inputDir,outputDir);
 	}

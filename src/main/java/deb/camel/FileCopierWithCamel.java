@@ -16,6 +16,10 @@ import org.apache.camel.impl.DefaultCamelContext;
  */
 public class FileCopierWithCamel {
 
+	/**
+	 * 
+	 */
+	private static final String DEFAULT_OPTION = "?noop=true";
 	private static final Logger LOGGER = Logger
 			.getLogger(FileCopierWithCamel.class.getName());
 
@@ -27,7 +31,7 @@ public class FileCopierWithCamel {
 	 *             http://camel.apache.org/stream-caching.html
 	 */
 	public static void main(String[] args) {
-		routeFile("file:src/main/resources/data?noop=true","file:src/main/resources/out");
+		routeFile("file:src/main/resources/data","file:src/main/resources/out",DEFAULT_OPTION);
 	}
 
 	/**
@@ -35,7 +39,7 @@ public class FileCopierWithCamel {
 	 * @param inputDirectory - files will be copied from.
 	 * @param outputDirectory - files will be copied to.
 	 */
-	public static void routeFile(final String inputDirectory,final String outputDirectory) {
+	public static void routeFile(final String inputDirectory,final String outputDirectory,final String options) {
 		CamelContext camelContext = null;
 		try {
 			camelContext = new DefaultCamelContext();
@@ -45,6 +49,12 @@ public class FileCopierWithCamel {
 				public void configure() throws Exception {
 					// noop option tells Camel to leave the source file as it
 					// is.	
+//					String actualOptions = options;
+//					if (actualOptions == null) {
+//						actualOptions = DEFAULT_OPTION;
+//					}
+//					String from = inputDirectory;
+//					from += actualOptions;
 					from(inputDirectory).to(
 							outputDirectory);
 
