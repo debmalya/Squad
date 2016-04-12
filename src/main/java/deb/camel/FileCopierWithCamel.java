@@ -49,13 +49,13 @@ public class FileCopierWithCamel {
 				public void configure() throws Exception {
 					// noop option tells Camel to leave the source file as it
 					// is.	
-//					String actualOptions = options;
-//					if (actualOptions == null) {
-//						actualOptions = DEFAULT_OPTION;
-//					}
-//					String from = inputDirectory;
-//					from += actualOptions;
-					from(inputDirectory).to(
+					String actualOptions = options;
+					if (actualOptions == null) {
+						actualOptions = DEFAULT_OPTION;
+					}
+					String from = inputDirectory;
+					from += actualOptions;
+					from(from).to(
 							outputDirectory);
 
 				}
