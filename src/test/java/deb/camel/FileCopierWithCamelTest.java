@@ -33,6 +33,8 @@ public class FileCopierWithCamelTest {
 		
 		FileCopierWithCamel.routeFile(FILE_OPTION+inputDir,FILE_OPTION+outputDir,options);		
 		checkDirectories(inputDir,outputDir);
+		
+		options ="Add new options";
 	}
 	
 	private void checkDirectories(final String inputDir,final String outputDir) {
