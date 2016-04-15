@@ -4,6 +4,7 @@
 package deb.camel;
 
 import java.io.File;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class FileCopierWithCamelTest {
 	public final void testRouteFile() {
 		String inputDir = "src/main/resources/data";
 		String outputDir = "src/main/resources/out";
-		String options = "?noop=true";
+		Optional<String> options = Optional.of("?noop=true");
 		
 		FileCopierWithCamel.routeFile(FILE_OPTION+inputDir,FILE_OPTION+outputDir,null);		
 		checkDirectories(inputDir,outputDir);
@@ -34,7 +35,9 @@ public class FileCopierWithCamelTest {
 		FileCopierWithCamel.routeFile(FILE_OPTION+inputDir,FILE_OPTION+outputDir,options);		
 		checkDirectories(inputDir,outputDir);
 		
-		options ="Add new options";
+//		options ="?noop=false";
+//		FileCopierWithCamel.routeFile(FILE_OPTION+inputDir,FILE_OPTION+outputDir,options);		
+//		checkDirectories(inputDir,outputDir);
 	}
 	
 	private void checkDirectories(final String inputDir,final String outputDir) {

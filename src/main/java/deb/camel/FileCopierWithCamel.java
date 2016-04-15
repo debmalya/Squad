@@ -3,6 +3,7 @@
  */
 package deb.camel;
 
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +20,7 @@ public class FileCopierWithCamel {
 	/**
 	 * 
 	 */
-	private static final String DEFAULT_OPTION = "?noop=true";
+	private static final Optional<String> DEFAULT_OPTION = Optional.of("?noop=true");
 	private static final Logger LOGGER = Logger
 			.getLogger(FileCopierWithCamel.class.getName());
 
@@ -39,7 +40,7 @@ public class FileCopierWithCamel {
 	 * @param inputDirectory - files will be copied from.
 	 * @param outputDirectory - files will be copied to.
 	 */
-	public static void routeFile(final String inputDirectory,final String outputDirectory,final String options) {
+	public static void routeFile(final String inputDirectory,final String outputDirectory,final Optional<String> options) {
 		CamelContext camelContext = null;
 		try {
 			camelContext = new DefaultCamelContext();
@@ -49,9 +50,9 @@ public class FileCopierWithCamel {
 				public void configure() throws Exception {
 					// noop option tells Camel to leave the source file as it
 					// is.	
-					String actualOptions = options;
+					String actualOptions = options.get();
 					if (actualOptions == null) {
-						actualOptions = DEFAULT_OPTION;
+						actualOptions = DEFAULT_OPTION.get();
 					}
 					String from = inputDirectory;
 					from += actualOptions;
