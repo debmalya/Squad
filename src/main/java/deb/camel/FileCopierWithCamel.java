@@ -20,7 +20,8 @@ public class FileCopierWithCamel {
 	/**
 	 * 
 	 */
-	private static final Optional<String> DEFAULT_OPTION = Optional.of("?noop=true");
+	private static final Optional<String> DEFAULT_OPTION = Optional
+			.of("?noop=true");
 	private static final Logger LOGGER = Logger
 			.getLogger(FileCopierWithCamel.class.getName());
 
@@ -32,15 +33,19 @@ public class FileCopierWithCamel {
 	 *             http://camel.apache.org/stream-caching.html
 	 */
 	public static void main(String[] args) {
-		routeFile("file:src/main/resources/data","file:src/main/resources/out",DEFAULT_OPTION);
+		routeFile("file:src/main/resources/data",
+				"file:src/main/resources/out", DEFAULT_OPTION);
 	}
 
 	/**
 	 * 
-	 * @param inputDirectory - files will be copied from.
-	 * @param outputDirectory - files will be copied to.
+	 * @param inputDirectory
+	 *            - files will be copied from.
+	 * @param outputDirectory
+	 *            - files will be copied to.
 	 */
-	public static void routeFile(final String inputDirectory,final String outputDirectory,final Optional<String> options) {
+	public static void routeFile(final String inputDirectory,
+			final String outputDirectory, final Optional<String> options) {
 		CamelContext camelContext = null;
 		try {
 			camelContext = new DefaultCamelContext();
@@ -49,15 +54,15 @@ public class FileCopierWithCamel {
 				@Override
 				public void configure() throws Exception {
 					// noop option tells Camel to leave the source file as it
-					// is.	
+					// is.
 					String actualOptions = options.get();
-					if (actualOptions == null) {
+					if (actualOptions == null
+							|| actualOptions.trim().length() == 0) {
 						actualOptions = DEFAULT_OPTION.get();
 					}
 					String from = inputDirectory;
 					from += actualOptions;
-					from(from).to(
-							outputDirectory);
+					from(from).to(outputDirectory);
 
 				}
 			});

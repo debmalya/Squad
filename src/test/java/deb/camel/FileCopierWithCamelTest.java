@@ -35,6 +35,9 @@ public class FileCopierWithCamelTest {
 		FileCopierWithCamel.routeFile(FILE_OPTION+inputDir,FILE_OPTION+outputDir,options);		
 		checkDirectories(inputDir,outputDir);
 		
+		FileCopierWithCamel.routeFile(FILE_OPTION+inputDir,FILE_OPTION+outputDir,Optional.of(""));		
+		checkDirectories(inputDir,outputDir);
+		
 //		options ="?noop=false";
 //		FileCopierWithCamel.routeFile(FILE_OPTION+inputDir,FILE_OPTION+outputDir,options);		
 //		checkDirectories(inputDir,outputDir);
