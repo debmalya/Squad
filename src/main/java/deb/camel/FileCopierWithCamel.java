@@ -39,10 +39,9 @@ public class FileCopierWithCamel {
 
 	/**
 	 * 
-	 * @param inputDirectory
-	 *            - files will be copied from.
-	 * @param outputDirectory
-	 *            - files will be copied to.
+	 * @param inputDirectory - from where files will be copied
+	 * @param outputDirectory - to destination folder
+	 * @param options - copying options
 	 */
 	public static void routeFile(final String inputDirectory,
 			final String outputDirectory, final Optional<String> options) {
